@@ -1,0 +1,176 @@
+/* .App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
+/* General Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #1e1e2f;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Main Container */
+.App {
+  text-align: center;
+  background-color: #2a2d3e;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  width: 90%;
+  max-width: 500px;
+  transition: all 0.3s ease;
+}
+
+/* Logo Animation */
+.App-logo {
+  height: 80px;
+  animation: App-logo-spin infinite 20s linear;
+  margin-bottom: 20px;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Heading */
+h1 {
+  font-size: 28px;
+  color: #61dafb;
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+button {
+  background-color: #61dafb;
+  color: #1e1e2f;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #4fa3d1;
+}
+
+/* Input Field */
+input[type="text"] {
+  width: calc(100% - 24px);
+  padding: 12px;
+  border: 2px solid #61dafb;
+  background-color: #1e1e2f;
+  color: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  transition: border-color 0.2s ease;
+  font-size: 16px;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #4fa3d1;
+}
+
+/* Result Text */
+.result {
+  font-size: 18px;
+  margin-top: 20px;
+  color: #ff6b6b;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .App {
+    padding: 24px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  input[type="text"] {
+    font-size: 14px;
+  }
+}
+/* Timer Styling */
+.timer {
+  font-size: 20px;
+  color: #ff6b6b;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Button Disabled State */
+button:disabled {
+  background-color: #444;
+  cursor: not-allowed;
+}
+
+.result {
+  font-size: 18px;
+  margin-top: 20px;
+  color: #ff6b6b;
+}
+.chances {
+  font-size: 20px;
+  color: #ff6b6b;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.chances.out-of-chances {
+  color: #ff3b3b;
+}
