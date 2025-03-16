@@ -27,3 +27,7 @@ AI-generated song lyric snippets using Gemini AI. 30-second countdown timer with
 
 5. Open the frontend in your browser:  
    `http://localhost:3000`  
+
+Preview:
+![image](https://github.com/user-attachments/assets/4d024dbd-7504-4e4d-8eb1-68b260c3317f)
+
