@@ -45,7 +45,7 @@ function App() {
   // Generate snippet
   const generateSnippet = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/generate-snippet');
+      const response = await axios.get('https://guess-the-song-dx1o.onrender.com/generate-snippet');
       setSnippet(response.data.snippet);
       setCurrentSong(response.data.currentSong);
       setGuess('');
