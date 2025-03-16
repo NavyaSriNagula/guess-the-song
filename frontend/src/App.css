@@ -174,3 +174,7 @@ button:disabled {
 .chances.out-of-chances {
   color: #ff3b3b;
 }
+
+.generate-snippet {
+  margin: 10px;
+}

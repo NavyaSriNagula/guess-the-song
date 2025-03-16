@@ -9,11 +9,12 @@ function App() {
   const [timeLeft, setTimeLeft] = useState(null);
   const [isDisabled, setIsDisabled] = useState(true);
   const [chancesLeft, setChancesLeft] = useState(3);
-  const [currentSong, setCurrentSong] = useState('');
-
+  
+  // ✅ Use ref for currentSong
+  const currentSongRef = useRef('');
   const timerRef = useRef(null);
 
-  // Start the countdown timer
+  // ✅ Start the countdown timer
   const startTimer = () => {
     setTimeLeft(30);
     setIsDisabled(false);
@@ -27,7 +28,7 @@ function App() {
       setTimeLeft((prevTime) => {
         if (prevTime <= 1) {
           clearInterval(timerRef.current);
-          handleTimeOut();
+          handleTimeOut(); // ✅ Trigger timeout when timer hits zero
           return 0;
         }
         return prevTime - 1;
@@ -35,19 +36,22 @@ function App() {
     }, 1000);
   };
 
-  // Handle timeout
+  // ✅ Handle timeout
   const handleTimeOut = async () => {
     setIsDisabled(true);
     setResult(`⏳ Time's up!`);
-    await fetchCorrectAnswer(); // ✅ Fetch only after timeout
+    fetchCorrectAnswer(); // ✅ Fetch answer after timeout
   };
 
-  // Generate snippet
+  // ✅ Generate snippet
   const generateSnippet = async () => {
     try {
       const response = await axios.get('https://guess-the-song-dx1o.onrender.com/generate-snippet');
       setSnippet(response.data.snippet);
-      setCurrentSong(response.data.currentSong);
+
+      // ✅ Store currentSong in ref (not state)
+      currentSongRef.current = response.data.currentSong;
+
       setGuess('');
       setResult('');
       startTimer();
@@ -62,29 +66,26 @@ function App() {
     if (chancesLeft <= 0) return;
 
     try {
-      const correctTitle = currentSong.split(' - ')[0];
+      const correctTitle = currentSongRef.current.split(' - ')[0]; // ✅ Access from ref
 
       if (guess.toLowerCase() === correctTitle.toLowerCase()) {
-        const message = '✅ Correct! 🎉';
         clearInterval(timerRef.current);
-        setResult(message);
+        setResult('✅ Correct! 🎉');
         setIsDisabled(true);
       } else {
-        const  message=`❌ Incorrect.".`;
         setChancesLeft((prev) => {
           if (prev === 1) {
             clearInterval(timerRef.current);
             setIsDisabled(true);
             setResult(`❌ Out of chances!`);
-            fetchCorrectAnswer();
+            fetchCorrectAnswer(); // ✅ Fetch only after last chance
             return 0;
           }
           return prev - 1;
         });
 
-        setResult(message);
+        setResult(`❌ Incorrect.`);
       }
-
     } catch (error) {
       console.error('Error checking guess:', error.message);
       setResult('❌ Failed to check answer.');
@@ -94,14 +95,18 @@ function App() {
   // ✅ Fetch correct answer after last chance or timeout
   const fetchCorrectAnswer = async () => {
     try {
-      const correctTitle = currentSong.split(' - ')[0];
-      setResult(`The correct song was "${correctTitle}"`);
+      if (currentSongRef.current) {
+        const correctTitle = currentSongRef.current.split(' - ')[0];
+        setResult(`The correct song was "${correctTitle}"`);
+      } else {
+        setResult(`Could not retrieve the correct answer.`);
+      }
     } catch (error) {
       console.error('Error fetching correct answer:', error.message);
     }
   };
 
-  // Cleanup timer on unmount
+  // ✅ Cleanup timer on unmount
   useEffect(() => {
     return () => clearInterval(timerRef.current);
   }, []);
@@ -124,7 +129,7 @@ function App() {
         <p className="chances out-of-chances">💔 No chances left!</p>
       )}
 
-      <button onClick={generateSnippet} disabled={timeLeft !== null && timeLeft > 0}>
+      <button className='generate-snippet' onClick={generateSnippet} disabled={timeLeft !== null && timeLeft > 0}>
         Generate Lyric Snippet
       </button>
       
